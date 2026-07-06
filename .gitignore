@@ -81,3 +81,5 @@ tools/BUILD
 tools/run_editor_tasks/user_config.yaml
 
 tools/tmp
+examples/counterfactual_demo/output/
+examples/counterfactual_demo/output_video/

@@ -29,12 +29,28 @@ python run.py
 # outputs land in ./output/
 ```
 
-## Extending to counterfactual VIDEO pairs
+## Counterfactual VIDEO pairs — `counterfactual_video.py`
 
-Wrap each condition in a frame loop (move the camera or let physics evolve with `instance.step()`),
-save per-frame PNGs, and encode like `examples/render_image_multi_view` does (mp4 via the ffmpeg bundled
-in `imageio_ffmpeg`). Because SPEAR's frame loop is deterministic (fixed 1/30 s delta time by default),
-factual and counterfactual rollouts stay frame-aligned — only your intervention differs.
+`counterfactual_video.py` turns the single-frame idea above into frame-aligned **video pairs**. It renders
+the same scripted camera orbit twice — once on the untouched scene ("factual") and once after a single
+intervention ("counterfactual") — and writes per-rollout RGB/depth mp4s plus a labeled
+`factual | counterfactual | diff` comparison video. Because SPEAR's frame loop is deterministic
+(fixed 1/30 s delta time) and the camera path is scripted rather than physics-driven, the two rollouts stay
+pixel-aligned everywhere except the intervention — so the diff track isolates exactly what changed.
+
+![counterfactual video preview](counterfactual_video_preview.png)
+
+```bash
+conda activate spear-env
+# uses the same user_config.yaml as above (GAME_EXECUTABLE set for your machine)
+python counterfactual_video.py --intervention move   # or: remove | add
+# mp4s land in ./output_video/
+```
+
+Encoding uses the ffmpeg bundled in `imageio-ffmpeg` (no system ffmpeg needed), the same as
+`examples/render_image_multi_view`. A long orbit can trigger on-demand shader/PSO compilation, so the script
+raises `SPEAR.INSTANCE.CLIENT_INTERNAL_TIMEOUT_SECONDS` (via `--rpc-timeout`, default 60 s) above the 2 s
+default to keep those hitches from aborting the run.
 
 ## Gotchas encoded in this example
 
