@@ -1,5 +1,11 @@
 # SPEAR: A Simulator for Photorealistic Embodied AI Research
 
+> **📌 Fork notes (haoyangli16/spear).** This fork adds team documentation on top of upstream:
+> - [`CODE_MAP.md`](CODE_MAP.md) — a guided map of the whole codebase (how Python controls Unreal, what every directory does, where to start by goal). **Read this first if you're new.**
+> - [`docs/setup_experience/`](docs/setup_experience/) — a battle-tested macOS **setup playbook** (real durations, every pitfall pre-empted), an **exploration guide** (scenes/assets, interaction API, RGB/depth/video capture, counterfactual-data recipe), and troubleshooting cards.
+> - [`examples/counterfactual_demo/`](examples/counterfactual_demo/) — a working example: intervene on a scene (move / remove / add objects) and capture paired RGB+depth with diff heatmaps.
+> - One local fix: `tools/run_executable.py` used a stale config key (`INITIALIZE_GAME_WORLD_SERVICE` → `WORLD_REGISTRY_SERVICE`); see `docs/setup_experience/experience_cards/04_*.md`.
+
 ![control_sample_projects](https://github.com/user-attachments/assets/83e502ca-aa8b-44c5-b57d-86ca3b8958e7)
 
 _SPEAR is a Python library that can connect to, and programmatically control, any Unreal Engine (UE) application via a modular plugin architecture. SPEAR exposes over 14K unique UE functions, representing an order-of-magnitude increase in programmable functionality over existing simulators. We demonstrate the flexibility of SPEAR by using it to control 6 distinct embodied agents (each with a different action space) across several Epic Games sample projects: a person and a car from `CitySample` (top); a flying robot from `StackOBot` (bottom far left); multiple agents in a resource collecting game called `CropoutSample` (bottom center left); as well as a person with parkour skills and a quadruped robot from `GameAnimationSample` (bottom right)._
